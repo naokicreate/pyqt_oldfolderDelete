@@ -20,6 +20,26 @@
      <height>16777215</height>
     </size>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget {
+    color: rgb(206, 253, 255);
+	
+	background-color: rgb(19, 22, 26);
+}
+
+QLabel {
+   
+	background-color: rgb(35, 45, 53);
+}
+
+QPushButton{
+	background-color: rgb(48, 52, 65);
+}
+QHeaderView::section {
+	
+	background-color: rgb(60, 64, 77);
+}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label">
@@ -47,7 +67,7 @@
      <widget class="QTreeView" name="treeView"/>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_Delete">
       <property name="text">
        <string>Delete</string>
       </property>
@@ -55,17 +75,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1003</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

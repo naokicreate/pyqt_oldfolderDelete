@@ -17,6 +17,24 @@ class Ui_MainWindow(object):
         MainWindow.resize(1003, 804)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.centralwidget.setStyleSheet("QWidget {\n"
+"    color: rgb(206, 253, 255);\n"
+"    \n"
+"    background-color: rgb(19, 22, 26);\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"   \n"
+"    background-color: rgb(35, 45, 53);\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    background-color: rgb(48, 52, 65);\n"
+"}\n"
+"QHeaderView::section {\n"
+"    \n"
+"    background-color: rgb(60, 64, 77);\n"
+"}")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -33,17 +51,10 @@ class Ui_MainWindow(object):
         self.treeView = QtWidgets.QTreeView(self.centralwidget)
         self.treeView.setObjectName("treeView")
         self.verticalLayout.addWidget(self.treeView)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setObjectName("pushButton")
-        self.verticalLayout.addWidget(self.pushButton)
+        self.pushButton_Delete = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_Delete.setObjectName("pushButton_Delete")
+        self.verticalLayout.addWidget(self.pushButton_Delete)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1003, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -53,4 +64,4 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "oldフォルダ一覧"))
         self.pushButton_Search.setText(_translate("MainWindow", "Search"))
-        self.pushButton.setText(_translate("MainWindow", "Delete"))
+        self.pushButton_Delete.setText(_translate("MainWindow", "Delete"))
