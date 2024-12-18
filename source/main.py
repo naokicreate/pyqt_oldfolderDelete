@@ -19,6 +19,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeView.setModel(self.model)
         self.pushButton_Search.clicked.connect(self.open_folder_dialog)
         self.pushButton_Delete.clicked.connect(self.delete_checked_folders)
+        self.toolButton_Reload.clicked.connect(self.reload_search)
 
         # Add the stylesheet for the QTreeView header
         self.treeView.setStyleSheet("""
@@ -29,41 +30,50 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         }
         """)
 
+        self.current_folder_path = None
+
     def open_folder_dialog(self):
+        search_text = self.lineEdit.text()
+        if not search_text:
+            QtWidgets.QMessageBox.warning(self, "Error", "Please enter a search term")
+            return
+
         folder_path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Folder")
         if folder_path:
+            self.current_folder_path = folder_path
+            self.search_folder(folder_path, search_text)
+
+    def search_folder(self, folder_path, search_text):
+        if os.path.exists(folder_path):
             self.model.clear()
             self.model.setHorizontalHeaderLabels(['Name', 'Path'])
-            self.search_old_folders(folder_path)
+            self.add_items(self.model, folder_path, search_text)
+        else:
+            QtWidgets.QMessageBox.warning(self, "Error", f"Folder does not exist: {folder_path}")
 
-    def search_old_folders(self, folder_path):
-        for root, dirs, _ in os.walk(folder_path):
-            if "old" in dirs:
-                old_folder_path = os.path.join(root, "old")
-                parent_item = CheckableStandardItem(os.path.basename(root))
-                child_item = QtGui.QStandardItem(old_folder_path)
-                parent_item.appendRow([CheckableStandardItem("old"), child_item])
-                self.model.appendRow([parent_item, child_item])
+    def add_items(self, parent, folder_path, search_text):
+        for root, dirs, files in os.walk(folder_path):
+            for name in dirs + files:
+                if search_text.lower() in name.lower():
+                    item = CheckableStandardItem(name)
+                    item.setData(os.path.join(root, name), QtCore.Qt.UserRole)
+                    parent.appendRow([item, QtGui.QStandardItem(os.path.join(root, name))])
+
+    def reload_search(self):
+        if self.current_folder_path:
+            search_text = self.lineEdit.text()
+            if search_text:
+                self.search_folder(self.current_folder_path, search_text)
+            else:
+                QtWidgets.QMessageBox.warning(self, "Error", "検索するフォルダ名を入力してください。")
+        else:
+            QtWidgets.QMessageBox.warning(self, "Error", "No folder selected for reloading search")
 
     def delete_checked_folders(self):
-        indexes = []
         for row in range(self.model.rowCount()):
-            parent_item = self.model.item(row, 0)
-            for sub_row in range(parent_item.rowCount()):
-                child_item = parent_item.child(sub_row, 0)
-                if child_item.checkState() == QtCore.Qt.Checked:
-                    folder_path = parent_item.child(sub_row, 1).text()
-                    try:
-                        shutil.rmtree(folder_path)  # フォルダとその中身を再帰的に削除
-                        indexes.append((row, sub_row))
-                    except Exception as e:
-                        QtWidgets.QMessageBox.warning(self, "Error", f"Could not delete '{folder_path}'. Error: {str(e)}")
-        
-        # Remove checked items from the model
-        for row, sub_row in reversed(indexes):
-            parent_item = self.model.item(row, 0)
-            parent_item.removeRow(sub_row)
-            if parent_item.rowCount() == 0:
+            item = self.model.item(row, 0)
+            if item.checkState() == QtCore.Qt.Checked:
+                shutil.rmtree(item.data(QtCore.Qt.UserRole))
                 self.model.removeRow(row)
 
 if __name__ == "__main__":

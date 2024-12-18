@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui_files/page01.ui'
+# Form implementation generated from reading ui file 'f:\Github\pyqt_oldfolderDelete\source\ui_files\page01.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -28,13 +28,18 @@ class Ui_MainWindow(object):
 "    background-color: rgb(35, 45, 53);\n"
 "}\n"
 "\n"
-"QPushButton{\n"
+"QPushButton,#toolButton_Reload{\n"
 "    background-color: rgb(48, 52, 65);\n"
 "}\n"
+"\n"
 "QHeaderView::section {\n"
-"    \n"
 "    background-color: rgb(60, 64, 77);\n"
-"}")
+"}\n"
+"\n"
+"QLineEdit{\n"
+"    background-color: rgb(86, 102, 113);\n"
+"}\n"
+"")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -45,6 +50,15 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setObjectName("lineEdit")
+        self.horizontalLayout.addWidget(self.lineEdit)
+        self.toolButton_Reload = QtWidgets.QToolButton(self.centralwidget)
+        self.toolButton_Reload.setObjectName("toolButton_Reload")
+        self.horizontalLayout.addWidget(self.toolButton_Reload)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.pushButton_Search = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_Search.setObjectName("pushButton_Search")
         self.verticalLayout.addWidget(self.pushButton_Search)
@@ -62,6 +76,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "oldフォルダ一覧"))
+        self.label.setText(_translate("MainWindow", "ファイル・フォルダ削除ツール"))
+        self.lineEdit.setToolTip(_translate("MainWindow", "<html><head/><body><p>ここで検索したいファイル名を入力</p></body></html>"))
+        self.lineEdit.setWhatsThis(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.toolButton_Reload.setText(_translate("MainWindow", "..."))
         self.pushButton_Search.setText(_translate("MainWindow", "Search"))
         self.pushButton_Delete.setText(_translate("MainWindow", "Delete"))

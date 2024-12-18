@@ -32,13 +32,18 @@ QLabel {
 	background-color: rgb(35, 45, 53);
 }
 
-QPushButton{
+QPushButton,#toolButton_Reload{
 	background-color: rgb(48, 52, 65);
 }
+
 QHeaderView::section {
-	
 	background-color: rgb(60, 64, 77);
-}</string>
+}
+
+QLineEdit{
+	background-color: rgb(86, 102, 113);
+}
+</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -49,12 +54,33 @@ QHeaderView::section {
        </font>
       </property>
       <property name="text">
-       <string>oldフォルダ一覧</string>
+       <string>ファイル・フォルダ削除ツール</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ここで検索したいファイル名を入力&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="toolButton_Reload">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QPushButton" name="pushButton_Search">
